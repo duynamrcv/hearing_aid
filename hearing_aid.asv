@@ -42,25 +42,11 @@ ifftArray = real(ifft(renoiseArray, N));
 ifftArray = ifftArray(1:len);
 subplot(3,2,3);
 plot(t,ifftArray);
-title('Voice after filter (Time Domain)');
-xlabel('Time (s)');
+title('Voic');
 %sound(ifftArray, Fs);
 
 % Amplify signal
-final = zeros(len,1);
-for i = 1:length(t)
-    if abs(ifftArray(i)) < 0.2
-        final(i) = 4.5*ifftArray(i);
-    else
-        if abs(ifftArray(i)) < 0.4
-            final(i) = 2.5 * ifftArray(i);
-        else
-            final(i) = ifftArray(i);
-        end;
-    end;
-end;
+output = 4*ifftArray();
 subplot(3,2,5);
-plot(t, final);
-title('Output voice');
-
-sound(final, Fs);
+plot(t, output);
+sound(output, Fs);
