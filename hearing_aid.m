@@ -62,18 +62,24 @@ xlabel('Time (s)');
 % Amplify signal
 final = zeros(len,1);
 for i = 1:length(t)
-    if abs(ifftArray(i)) < 0.2
-        final(i) = 4.5*ifftArray(i);
+    if abs(ifftArray(i)) < 0.1
+        final(i) = 6*ifftArray(i);
+    elseif abs(ifftArray(i)) < 0.2
+        final(i) = 4.5 * ifftArray(i);
+    elseif abs(ifftArray(i)) < 0.4
+        final(i) = 2.3 * ifftArray(i);
+    elseif abs(ifftArray(i)) < 0.6
+        final(i) = 1.5 * ifftArray(i);
     else
-        if abs(ifftArray(i)) < 0.4
-            final(i) = 2.5 * ifftArray(i);
-        else
-            final(i) = ifftArray(i);
-        end;
+        final(i) = ifftArray(i);
     end;
 end;
+final = 1.5 * final;
+
 subplot(3,2,5);
 plot(t, final);
 title('Output voice');
 xlabel('Time (s)');
-sound(final, Fs);
+%sound(final, Fs);
+output = 'output.wav';
+audiowrite(output, final, Fs);
