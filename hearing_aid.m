@@ -62,19 +62,22 @@ xlabel('Time (s)');
 % Amplify signal
 final = zeros(len,1);
 for i = 1:length(t)
-    if abs(ifftArray(i)) < 0.1
-        final(i) = 6*ifftArray(i);
-    elseif abs(ifftArray(i)) < 0.2
-        final(i) = 4.5 * ifftArray(i);
-    elseif abs(ifftArray(i)) < 0.4
-        final(i) = 2.3 * ifftArray(i);
-    elseif abs(ifftArray(i)) < 0.6
+    if abs(ifftArray(i)) < 0.005
+        final(i) = 0*ifftArray(i);
+    elseif abs(ifftArray(i)) < 0.05
+        final(i) = 3.5 * ifftArray(i);
+    elseif abs(ifftArray(i)) < 0.1
+        final(i) = 2.5 * ifftArray(i);
+    elseif abs(ifftArray(i)) < 0.15
         final(i) = 1.5 * ifftArray(i);
     else
         final(i) = ifftArray(i);
     end;
 end;
-final = 1.5 * final;
+
+% Increase signal 10db
+vol= db2mag(10);
+final=vol*final;
 
 subplot(3,2,5);
 plot(t, final);
